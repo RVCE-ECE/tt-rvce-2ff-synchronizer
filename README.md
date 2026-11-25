@@ -1,42 +1,48 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# 2-FF Synchronizer / Clock-Domain-Crossing Demo
 
-- [Read the documentation for project](docs/info.md)
+A Tiny Tapeout (SKY130, shuttle SKY26E) project from RV College of Engineering that shows how asynchronous signals
+are brought safely into a clock domain.
 
-## What is Tiny Tapeout?
+- [Datasheet / project documentation](docs/info.md)
+- Top module: `tt_um_rvce_2ff_sync` in [src/project.v](src/project.v)
+- Testbench: [test/test.py](test/test.py) (cocotb)
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+## What it does
 
-To learn more and get started, visit https://tinytapeout.com.
+| Block | Inputs | Outputs |
+|---|---|---|
+| Four 2-FF level synchronizers | `ui[3:0]` | `uo[3:0]` (two clock cycles later) |
+| Rising / falling edge detector on synchronized `ui[0]` | `ui[0]` | `uo[4]` rise pulse, `uo[5]` fall pulse |
+| Toggle flip-flop | `ui[0]` | `uo[6]` |
+| Toggle (pulse) synchronizer | `ui[4]` | `uo[7]`, one pulse per change |
+| 8-bit event counters | `ui[5]` selects | `uio[7:0]` |
 
-## Set up your Verilog project
+Why two flip-flops: the first flip-flop may go metastable when the input changes near a clock edge. It is given a
+full clock period to settle before the second flip-flop samples it, so the rest of the logic only sees a clean signal.
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+## Running the tests
 
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
+```sh
+cd test
+make -B
+```
 
-## Enable GitHub actions to build the results page
+This needs Icarus Verilog and cocotb (see [test/README.md](test/README.md)). The same tests run automatically in the
+GitHub Actions `test` workflow.
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+## Team
 
-## Resources
+Punyashloka, Purnendu, Rahil, Ronak and Shylashree N, RV College of Engineering.
 
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
+## Credits
 
-## What next?
+We gratefully acknowledge the Center of Excellence (CoE) in Integrated Circuits and Systems (ICAS) and the Department
+of Electronics and Communication Engineering (ECE), RVCE, for providing the necessary resources and guidance.
 
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+Special thanks to Dr. H V Ravish Aradhya (HoD - ECE), Dr. K R Usha Rani (Associate Dean - PG), Dr. K. S. Geetha
+(Vice Principal) and Dr. K. N. Subramanya (Principal) for their constant encouragement and support.
+
+Built from the [Tiny Tapeout Verilog template](https://github.com/TinyTapeout/ttsky-verilog-template).
+Learn more at [tinytapeout.com](https://tinytapeout.com).

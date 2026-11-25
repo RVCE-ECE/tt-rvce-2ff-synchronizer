@@ -1,17 +1,17 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
+  title:        "2-FF Synchronizer / Clock-Domain-Crossing Demo"      # Project title
+  author:       "Punyashloka, Purnendu, Rahil, Ronak, Shylashree N, RV College of Engineering"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  description:  "Two-flip-flop synchronizers with edge detection, a toggle pulse synchronizer and event counters for asynchronous inputs"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     10000000       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  top_module:  "tt_um_rvce_2ff_sync"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
@@ -23,34 +23,34 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
+  ui[0]: "ASYNC_IN0"
+  ui[1]: "ASYNC_IN1"
+  ui[2]: "ASYNC_IN2"
+  ui[3]: "ASYNC_IN3"
+  ui[4]: "ASYNC_TOGGLE"
+  ui[5]: "COUNT_SEL"
   ui[6]: ""
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "SYNC_OUT0"
+  uo[1]: "SYNC_OUT1"
+  uo[2]: "SYNC_OUT2"
+  uo[3]: "SYNC_OUT3"
+  uo[4]: "RISE_PULSE"
+  uo[5]: "FALL_PULSE"
+  uo[6]: "TOGGLE_OUT"
+  uo[7]: "SYNC_PULSE"
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "COUNT[0]"
+  uio[1]: "COUNT[1]"
+  uio[2]: "COUNT[2]"
+  uio[3]: "COUNT[3]"
+  uio[4]: "COUNT[4]"
+  uio[5]: "COUNT[5]"
+  uio[6]: "COUNT[6]"
+  uio[7]: "COUNT[7]"
 
 # Do not change!
 yaml_version: 6
